@@ -1,4 +1,6 @@
-find_package(Qt5 COMPONENTS Core)
+if(IS_MASTER_PROJECT)
+  find_package(Qt5 COMPONENTS Core)
+endif()
 set(CMAKE_AUTOMOC OFF)
 
 set(plugin CnoidOpenRTMPlugin)
@@ -90,9 +92,6 @@ endif()
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 make_gettext_mofiles(${plugin} mofiles)
-include_directories(${OPENRTM_INCLUDE_DIRS})
-link_directories(${OPENRTM_LIBRARY_DIRS})
-add_definitions(${OPENRTM_DEFINITIONS})
 
 if(MSVC)
   add_compile_options(${OPENRTM_CFLAGS})
@@ -100,9 +99,15 @@ endif()
 
 choreonoid_add_plugin(${plugin}
   ${plugin_sources} ${idl_cpp_files} ${idl_h_files} ${mofiles} ${RC_SRCS} HEADERS ${plugin_headers})
-target_link_libraries(${plugin}
-  CnoidBodyIoRTC
-  ${OPENRTM_LIBRARIES} ${CHOREONOID_CORBA_PLUGIN_LIBRARIES} ${CHOREONOID_BODY_PLUGIN_LIBRARIES})
+
+if(IS_MASTER_PROJECT)
+  target_link_libraries(${plugin}
+    CnoidBodyIoRTC
+    ${OPENRTM_LIBRARIES} ${CHOREONOID_CORBA_PLUGIN_LIBRARIES} ${CHOREONOID_BODY_PLUGIN_LIBRARIES})
+else()
+  target_link_libraries(${plugin}
+    CnoidBodyPlugin CnoidCorbaPlugin CnoidBodyIoRTC ${OPENRTM_LIBRARIES})
+endif()
 
 if(CHOREONOID_ENABLE_PYTHON)
   add_subdirectory(pybind11)

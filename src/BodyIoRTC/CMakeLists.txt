@@ -4,8 +4,13 @@ set(headers BodyIoRTC.h exportdecl.h)
 
 choreonoid_make_headers_public(BodyIoRTC.h)
 choreonoid_add_library(${target} SHARED ${sources} HEADERS ${headers})
-target_link_libraries(${target} CnoidOpenRTM 
-  ${CHOREONOID_BODY_LIBRARIES} ${CHOREONOID_CORBA_LIBRARIES} ${OPENRTM_LIBRARIES})
+
+if(IS_MASTER_PROJECT)
+  target_link_libraries(${target} CnoidOpenRTM 
+    ${CHOREONOID_BODY_LIBRARIES} ${CHOREONOID_CORBA_LIBRARIES} ${OPENRTM_LIBRARIES})
+else()
+  target_link_libraries(${target} CnoidOpenRTM CnoidCorba CnoidBody ${OPENRTM_LIBRARIES})
+endif()
 
 function(choreonoid_openrtm_add_body_io_rtc)
   set(target ${ARGV0})
