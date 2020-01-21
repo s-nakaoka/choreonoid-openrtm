@@ -83,7 +83,7 @@ unset(idl_cpp_files)
 unset(idl_h_files)
 if(USE_BUILTIN_CAMERA_IMAGE_IDL)
   set(idl_files ${idl_files} CameraImage)
-  choreonoid_coraba_compile_idl_to_cpp(idl_cpp_files idl_h_files deprecated/corba ${idl_files} LOCAL)
+  choreonoid_compile_corba_idl_to_cpp(idl_cpp_files idl_h_files deprecated/corba ${idl_files} LOCAL)
 else()
   set(OPENRTM_LIBRARIES ${OPENRTM_LIBRARIES} ${OPENRTM_CAMERA_LIBRARY})
 endif()
@@ -98,7 +98,7 @@ if(MSVC)
   add_compile_options(${OPENRTM_CFLAGS})
 endif()
 
-choreonoid_add_plugin(${plugin} SHARED
+choreonoid_add_plugin(${plugin}
   ${plugin_sources} ${idl_cpp_files} ${idl_h_files} ${mofiles} ${RC_SRCS} HEADERS ${plugin_headers})
 target_link_libraries(${plugin}
   CnoidBodyIoRTC

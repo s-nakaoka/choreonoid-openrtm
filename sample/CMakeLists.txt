@@ -29,7 +29,7 @@ choreonoid_openrtm_add_body_io_rtc(TankIoRTC TankIoRTC.cpp)
 choreonoid_openrtm_add_body_io_rtc(JoystickRTC JoystickRTC.cpp)
 choreonoid_openrtm_add_body_io_rtc(RemoteJoystickRTC RemoteJoystickRTC.cpp)
 
-choreonoid_body_add_simple_controller(RemoteJoystickInputController RemoteJoystickInputController.cpp)
+choreonoid_add_simple_controller(RemoteJoystickInputController RemoteJoystickInputController.cpp)
 target_link_libraries(RemoteJoystickInputController CnoidOpenRTMPlugin)
 
 # Tank Joystick Controller
