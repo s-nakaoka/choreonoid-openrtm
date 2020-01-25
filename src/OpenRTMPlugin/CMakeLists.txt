@@ -1,5 +1,5 @@
 if(IS_MASTER_PROJECT)
-  find_package(Qt5 COMPONENTS Core)
+  choreonoid_find_qt_package()
 endif()
 set(CMAKE_AUTOMOC OFF)
 
@@ -103,7 +103,7 @@ choreonoid_add_plugin(${plugin}
 if(IS_MASTER_PROJECT)
   target_link_libraries(${plugin}
     CnoidBodyIoRTC
-    ${OPENRTM_LIBRARIES} ${CHOREONOID_CORBA_PLUGIN_LIBRARIES} ${CHOREONOID_BODY_PLUGIN_LIBRARIES})
+    ${OPENRTM_LIBRARIES} ${CHOREONOID_CORBA_PLUGIN_LIBRARIES} ${CHOREONOID_BODY_PLUGIN_LIBRARIES} ${QT_LIBRARIES})
 else()
   target_link_libraries(${plugin}
     CnoidBodyPlugin CnoidCorbaPlugin CnoidBodyIoRTC ${OPENRTM_LIBRARIES})
