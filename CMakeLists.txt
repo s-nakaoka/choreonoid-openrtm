@@ -21,8 +21,17 @@ else()
       FORCE)
   endif()
 
-  find_package(Choreonoid REQUIRED)
-
+  if(NOT Choreonoid_FOUND)
+    file(GLOB choreonoid_search_path
+      "c:/choreonoid*/share/choreonoid/cmake"
+      "c:/choreonoid*/*/share/choreonoid/cmake")
+  endif()
+  if(choreonoid_search_path)
+    find_package(Choreonoid REQUIRED HINTS ${choreonoid_search_path})
+  else()
+    find_package(Choreonoid REQUIRED)
+  endif()
+  
   if(NOT CHOREONOID_ENABLE_CORBA)
     message(FATAL_ERROR "CORBA is not available in Choreonoid")
   endif()
@@ -42,7 +51,7 @@ else()
 
   include_directories(${CHOREONOID_INCLUDE_DIRS})
   link_directories(${CHOREONOID_LIBRARY_DIRS})
-  add_definitions(${CHOREONOID_DEFINITIONS})
+  set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS ${CHOREONOID_COMPILE_DEFINITIONS})
 endif()
 
 find_package(OpenRTM REQUIRED CONFIG)
