@@ -53,7 +53,9 @@ endif()
 list(APPEND project_files
   OpenRTM-AizuSpiderSS-Remote.cnoid
   OpenRTM-AizuSpider-Terminal.cnoid  
-  OpenRTM-DoubleArmV7-Terminal.cnoid)
+  OpenRTM-DoubleArmV7-Terminal.cnoid
+  AizuSpider-RTSystem.xml
+  DoubleArmV7-RTSystem.xml)
 
 # Quadcopter sample
 
