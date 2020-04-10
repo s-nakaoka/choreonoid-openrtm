@@ -5,4 +5,4 @@ add_cnoid_python_module(${target}
   PyItems.cpp
 )
 
-target_link_libraries(${target} CnoidOpenRTMPlugin CnoidPyBase C:/Python37/Libs/python37.lib)
+target_link_libraries(${target} CnoidOpenRTMPlugin CnoidPyBase ${CHOREONOID_PYTHON_LIBRARIES})
